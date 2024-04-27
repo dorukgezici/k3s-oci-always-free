@@ -1,0 +1,23 @@
+{
+  "tagOwners": {
+    "tag:cluster": ["autogroup:admin"],
+    "tag:ci": ["autogroup:admin"]
+  },
+  "autoApprovers": {
+    "routes": {
+      "10.42.0.0/16": ["tag:cluster"]
+    }
+  },
+  "acls": [{ "action": "accept", "src": ["*"], "dst": ["*:*"] }],
+  "ssh": [
+    {
+      "action": "check",
+      "src": ["autogroup:member"],
+      "dst": ["autogroup:self"],
+      "users": ["autogroup:nonroot", "root"]
+    }
+  ],
+  "nodeAttrs": [
+    { "target": ["*"], "app": { "tailscale.com/app-connectors": [] } }
+  ]
+}

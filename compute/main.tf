@@ -2,7 +2,7 @@ resource "oci_core_instance" "server" {
   count               = 2
   compartment_id      = var.oci_tenancy_ocid
   availability_domain = data.oci_identity_availability_domain.ad.name
-  display_name        = "k3s-oci-${count.index + 1}-server"
+  display_name        = "${var.cluster_prefix}-${count.index + 1}-server"
   shape               = local.ampere_instance_config.shape_id
   source_details {
     source_id   = local.ampere_instance_config.source_id
@@ -21,6 +21,7 @@ resource "oci_core_instance" "server" {
     "ssh_authorized_keys" = local.ampere_instance_config.metadata.ssh_authorized_keys
     "user_data" = base64encode(templatefile("${path.module}/templates/user_data.sh", {
       k3s_api            = cidrhost(var.cidr_blocks[0], 11)
+      tls_san            = "${var.cluster_prefix}.${var.k3s_api_domain}"
       tailscale_auth_key = var.tailscale_auth_key
       cluster_token      = random_string.cluster_token.result
     }))
@@ -31,7 +32,7 @@ resource "oci_core_instance" "agent" {
   count               = 2
   compartment_id      = var.oci_tenancy_ocid
   availability_domain = data.oci_identity_availability_domain.ad.name
-  display_name        = "k3s-oci-${count.index + 3}-agent"
+  display_name        = "${var.cluster_prefix}-${count.index + 3}-agent"
   shape               = local.micro_instance_config.shape_id
   source_details {
     source_id   = local.micro_instance_config.source_id
@@ -50,6 +51,7 @@ resource "oci_core_instance" "agent" {
     "ssh_authorized_keys" = local.micro_instance_config.metadata.ssh_authorized_keys
     "user_data" = base64encode(templatefile("${path.module}/templates/user_data.sh", {
       k3s_api            = cidrhost(var.cidr_blocks[0], 11)
+      tls_san            = "${var.cluster_prefix}.${var.k3s_api_domain}"
       tailscale_auth_key = var.tailscale_auth_key
       cluster_token      = random_string.cluster_token.result
     }))

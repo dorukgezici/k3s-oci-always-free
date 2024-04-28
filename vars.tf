@@ -1,11 +1,17 @@
 locals {
   cidr_blocks             = ["10.0.0.0/16"]
   mesh_management_network = "100.64.0.0/10"
+  cluster_prefix          = "k3s-oci"
 }
 
 variable "ssh_authorized_keys" {
   description = "List of authorized SSH keys"
   type        = list(any)
+}
+
+variable "issuer_acme_email" {
+  description = "Cloudflare cluster issuer acme email"
+  type        = string
 }
 
 # Tailscale

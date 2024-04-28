@@ -14,7 +14,7 @@ provider "cloudflare" {
 resource "cloudflare_record" "servers" {
   count           = length(var.k3s_servers)
   zone_id         = var.cloudflare_zone_id
-  name            = "k3s-oci"
+  name            = var.cluster_prefix
   value           = var.k3s_servers[count.index].addresses[0]
   type            = "A"
   proxied         = false
@@ -24,7 +24,7 @@ resource "cloudflare_record" "servers" {
 resource "cloudflare_record" "nodes" {
   count           = length(concat(var.k3s_servers, var.k3s_agents))
   zone_id         = var.cloudflare_zone_id
-  name            = "*.k3s-oci"
+  name            = "*.${var.cluster_prefix}"
   value           = concat(var.k3s_servers, var.k3s_agents)[count.index].addresses[0]
   type            = "A"
   ttl             = 3600

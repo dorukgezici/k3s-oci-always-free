@@ -32,9 +32,20 @@ variable "cidr_blocks" {
   type        = list(any)
 }
 
+variable "cluster_prefix" {
+  description = "Prefix for the cluster name"
+  type        = string
+  default     = "k3s-oci"
+}
+
 variable "ssh_authorized_keys" {
   description = "List of authorized SSH keys"
   type        = list(any)
+}
+
+variable "k3s_api_domain" {
+  description = "K3s API Domain"
+  type        = string
 }
 
 variable "tailscale_auth_key" {

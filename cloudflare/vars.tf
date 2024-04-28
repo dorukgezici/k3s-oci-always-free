@@ -8,6 +8,12 @@ variable "cloudflare_zone_id" {
   type        = string
 }
 
+variable "cluster_prefix" {
+  description = "Prefix for the cluster name"
+  type        = string
+  default     = "k3s-oci"
+}
+
 variable "k3s_servers" {
   description = "List of K3s servers, access IP with k3s_servers[i].addresses[0]"
   type        = list(any)

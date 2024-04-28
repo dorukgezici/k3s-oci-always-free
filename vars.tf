@@ -8,11 +8,6 @@ variable "ssh_authorized_keys" {
   type        = list(any)
 }
 
-variable "k3s_api_domain" {
-  description = "Domain name for the K3s API"
-  type        = string
-}
-
 # Tailscale
 variable "tailscale_auth_key" {
   description = "Tailscale Auth Key"

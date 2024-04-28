@@ -27,9 +27,11 @@ module "compute" {
 
   cidr_blocks         = local.cidr_blocks
   ssh_authorized_keys = var.ssh_authorized_keys
-  cluster_subnet_id   = module.network.subnet.id
 
-  k3s_api_domain     = var.k3s_api_domain
+  cluster_subnet_id     = module.network.subnet.id
+  permit_ssh_nsg_id     = module.network.permit_ssh.id
+  permit_k3s_api_nsg_id = module.network.permit_k3s_api.id
+
   tailscale_auth_key = var.tailscale_auth_key
 }
 

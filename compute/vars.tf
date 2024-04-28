@@ -37,11 +37,6 @@ variable "ssh_authorized_keys" {
   type        = list(any)
 }
 
-variable "k3s_api_domain" {
-  description = "Domain name for the K3s API"
-  type        = string
-}
-
 variable "tailscale_auth_key" {
   description = "Tailscale Auth Key"
   type        = string
@@ -54,5 +49,15 @@ variable "oci_tenancy_ocid" {
 
 variable "cluster_subnet_id" {
   description = "Subnet for the cluster"
+  type        = string
+}
+
+variable "permit_ssh_nsg_id" {
+  description = "NSG to permit SSH"
+  type        = string
+}
+
+variable "permit_k3s_api_nsg_id" {
+  description = "NSG to permit K3s API"
   type        = string
 }

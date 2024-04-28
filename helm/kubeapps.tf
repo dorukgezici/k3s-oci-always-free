@@ -6,12 +6,14 @@ resource "helm_release" "kubeapps" {
   create_namespace = true
 
   values = [<<-EOF
+    clusters:
+      - name: ${var.cluster_prefix}
+        domain: ${var.cluster_subdomain}
     ingress:
       enabled: true
       ingressClassName: traefik
       hostname: "kubeapps.${var.cluster_subdomain}"
       tls: true
-      certManager: true
       annotations:
         cert-manager.io/cluster-issuer: cloudflare
         traefik.ingress.kubernetes.io/router.tls: "true"

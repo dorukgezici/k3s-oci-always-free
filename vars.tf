@@ -37,34 +37,41 @@ variable "cloudflare_zone_id" {
 }
 
 # OCI
-variable "oci_region" {
+variable "region" {
   description = "The region to connect to. Default: eu-stockholm-1"
   type        = string
   default     = "eu-stockholm-1"
 }
 
-variable "oci_tenancy_ocid" {
+variable "tenancy_ocid" {
   description = "The tenancy OCID."
   type        = string
 }
 
-variable "oci_user_ocid" {
+variable "user_ocid" {
   description = "The user OCID."
   type        = string
 }
 
-variable "oci_fingerprint" {
+variable "fingerprint" {
   description = "The fingerprint of the key to use for signing"
   type        = string
 }
 
-variable "oci_private_key" {
+variable "private_key" {
   description = "Private key to use for signing"
   type        = string
+  default     = ""
 }
 
-variable "oci_private_key_password" {
+variable "private_key_password" {
   description = "Password for private key to use for signing"
   type        = string
   default     = ""
+}
+
+variable "config_file_profile" {
+  description = ".oci/config profile to use. Default: DEFAULT"
+  type        = string
+  default     = "DEFAULT"
 }

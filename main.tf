@@ -1,21 +1,20 @@
 terraform {
-  required_version = ">= 1.8.2"
   required_providers {
     oci = {
-      source  = "oracle/oci"
-      version = ">= 5.39.0"
+      source = "oracle/oci"
     }
   }
 }
 
 provider "oci" {
-  private_key          = var.oci_private_key
-  private_key_password = var.oci_private_key_password
+  private_key          = var.private_key
+  private_key_password = var.private_key_password
+  config_file_profile  = var.config_file_profile
 }
 
 module "network" {
   source           = "./network"
-  oci_tenancy_ocid = var.oci_tenancy_ocid
+  oci_tenancy_ocid = var.tenancy_ocid
 
   cidr_blocks             = local.cidr_blocks
   mesh_management_network = local.mesh_management_network
@@ -23,7 +22,7 @@ module "network" {
 
 module "compute" {
   source           = "./compute"
-  oci_tenancy_ocid = var.oci_tenancy_ocid
+  oci_tenancy_ocid = var.tenancy_ocid
 
   cidr_blocks         = local.cidr_blocks
   cluster_prefix      = local.cluster_prefix

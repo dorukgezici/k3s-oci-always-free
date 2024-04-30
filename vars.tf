@@ -2,6 +2,8 @@ locals {
   cidr_blocks             = ["10.0.0.0/16"]
   mesh_management_network = "100.64.0.0/10"
   cluster_prefix          = "k3s-oci"
+  # check tailscale network to see if nodes are ready
+  is_ready = length(module.tailscale.k3s_servers) == 2 && length(module.tailscale.k3s_agents) == 2 ? true : false
 }
 
 variable "ssh_authorized_keys" {
@@ -44,12 +46,12 @@ variable "region" {
 }
 
 variable "tenancy_ocid" {
-  description = "The tenancy OCID."
+  description = "OCI Tenancy OCID"
   type        = string
 }
 
 variable "user_ocid" {
-  description = "The user OCID."
+  description = "OCI User OCID"
   type        = string
 }
 

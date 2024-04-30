@@ -14,6 +14,6 @@ output "get_kubeconfig" {
 
 output "kubeapps_token" {
   description = "Token to be used in kubeapps"
-  value       = module.kubernetes.kubeapps_token
+  value       = try(module.kubernetes.kubeapps_token, null)
   sensitive   = true
 }

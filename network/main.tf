@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    oci = {
+      source = "oracle/oci"
+    }
+  }
+}
+
 resource "oci_core_vcn" "cluster_vcn" {
   compartment_id = var.oci_tenancy_ocid
 

@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    oci = {
+      source = "oracle/oci"
+    }
+  }
+}
+
 resource "oci_core_instance" "server" {
   count               = 2
   compartment_id      = var.oci_tenancy_ocid
@@ -21,7 +29,7 @@ resource "oci_core_instance" "server" {
     "ssh_authorized_keys" = local.ampere_instance_config.metadata.ssh_authorized_keys
     "user_data" = base64encode(templatefile("${path.module}/templates/user_data.sh", {
       k3s_api            = cidrhost(var.cidr_blocks[0], 11)
-      tls_san            = "${var.cluster_prefix}.${var.k3s_api_domain}"
+      tls_san            = var.k3s_api_domain
       tailscale_auth_key = var.tailscale_auth_key
       cluster_token      = random_string.cluster_token.result
     }))
@@ -51,7 +59,7 @@ resource "oci_core_instance" "agent" {
     "ssh_authorized_keys" = local.micro_instance_config.metadata.ssh_authorized_keys
     "user_data" = base64encode(templatefile("${path.module}/templates/user_data.sh", {
       k3s_api            = cidrhost(var.cidr_blocks[0], 11)
-      tls_san            = "${var.cluster_prefix}.${var.k3s_api_domain}"
+      tls_san            = var.k3s_api_domain
       tailscale_auth_key = var.tailscale_auth_key
       cluster_token      = random_string.cluster_token.result
     }))

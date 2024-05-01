@@ -18,7 +18,7 @@ module "compute" {
   permit_ssh_nsg_id     = module.network.permit_ssh.id
   permit_k3s_api_nsg_id = module.network.permit_k3s_api.id
 
-  k3s_api_domain = module.cloudflare.domain
+  k3s_api_domain = "${local.cluster_prefix}.${module.cloudflare.domain}"
 
   tailscale_auth_key = var.tailscale_auth_key
 }

@@ -2,6 +2,7 @@ locals {
   cidr_blocks             = ["10.0.0.0/16"]
   mesh_management_network = "100.64.0.0/10"
   cluster_prefix          = "k3s-oci"
+  cluster_domain          = "${local.cluster_prefix}.${module.cloudflare.domain}"
   # check tailscale network to see if nodes are ready
   is_ready = length(module.tailscale.k3s_servers) == 2 && length(module.tailscale.k3s_agents) == 2 ? true : false
 }

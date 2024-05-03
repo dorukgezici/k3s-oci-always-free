@@ -53,7 +53,7 @@ resource "oci_core_instance" "agent" {
   create_vnic_details {
     subnet_id  = var.cluster_subnet_id
     private_ip = cidrhost(var.cidr_blocks[0], 21 + count.index)
-    nsg_ids    = [var.permit_ssh_nsg_id, var.permit_k3s_api_nsg_id]
+    nsg_ids    = [var.permit_ssh_nsg_id]
   }
   metadata = {
     "ssh_authorized_keys" = local.micro_instance_config.metadata.ssh_authorized_keys

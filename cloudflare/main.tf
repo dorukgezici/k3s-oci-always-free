@@ -23,6 +23,6 @@ resource "cloudflare_record" "public" {
   name            = "*.${var.cluster_subdomain_public}"
   value           = var.cluster_lb_ip
   type            = "A"
-  proxied         = true
+  proxied         = false
   allow_overwrite = true
 }

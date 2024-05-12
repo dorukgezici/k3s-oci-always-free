@@ -17,7 +17,7 @@ resource "kubernetes_manifest" "cluster_issuer" {
             "dns01" = {
               "cloudflare" = {
                 "apiTokenSecretRef" = {
-                  "name" = "cloudflare-api-token-secret"
+                  "name" = "${kubernetes_secret.cloudflare_api_token.metadata.0.name}"
                   "key"  = "api-token"
                 }
               }

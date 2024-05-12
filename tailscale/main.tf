@@ -1,12 +1,4 @@
-terraform {
-  required_providers {
-    tailscale = {
-      source = "tailscale/tailscale"
-    }
-  }
+# first, uncomment & run: terraform import module.tailscale.tailscale_acl.cluster_acl acl
+resource "tailscale_acl" "cluster_acl" {
+  acl = file("${path.module}/acl.json")
 }
-
-# first run: terraform import module.tailscale.tailscale_acl.cluster_acl acl
-# resource "tailscale_acl" "cluster_acl" {
-#   acl = file("${path.module}/acl.json")
-# }

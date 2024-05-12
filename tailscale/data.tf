@@ -1,3 +1,7 @@
-data "tailscale_devices" "k3s_nodes" {
-  name_prefix = "${var.cluster_prefix}-"
+data "tailscale_devices" "k3s_servers" {
+  name_prefix = "${var.cluster_prefix}-server-"
+}
+
+data "tailscale_devices" "k3s_agents" {
+  name_prefix = "${var.cluster_prefix}-agent-"
 }

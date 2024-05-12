@@ -1,11 +1,3 @@
-terraform {
-  required_providers {
-    cloudflare = {
-      source = "cloudflare/cloudflare"
-    }
-  }
-}
-
 resource "cloudflare_record" "servers" {
   count           = length(var.k3s_servers)
   zone_id         = var.cloudflare_zone_id
@@ -22,6 +14,6 @@ resource "cloudflare_record" "nodes" {
   name            = "*.${var.cluster_prefix}"
   value           = concat(var.k3s_servers, var.k3s_agents)[count.index].addresses[0]
   type            = "A"
-  ttl             = 3600
+  proxied         = false
   allow_overwrite = true
 }

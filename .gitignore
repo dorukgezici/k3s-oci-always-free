@@ -3,6 +3,7 @@
 
 # Secrets
 .env
+kubeconfig*
 
 # Terraform
 *.terraform

@@ -8,7 +8,14 @@
       "10.42.0.0/16": ["tag:cluster"]
     }
   },
-  "acls": [{ "action": "accept", "src": ["*"], "dst": ["*:*"] }],
+  "acls": [
+    { "action": "accept", "src": ["autogroup:member"], "dst": ["*:*"] },
+    {
+      "action": "accept",
+      "src": ["tag:cluster", "10.42.0.0/16"],
+      "dst": ["tag:cluster:*", "10.42.0.0/16:*"]
+    }
+  ],
   "ssh": [
     {
       "action": "check",

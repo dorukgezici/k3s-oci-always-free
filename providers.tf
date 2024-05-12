@@ -19,9 +19,9 @@ terraform {
 }
 
 provider "oci" {
-  private_key          = var.private_key
-  private_key_password = var.private_key_password
-  config_file_profile  = var.config_file_profile
+  region              = var.oci_region
+  tenancy_ocid        = var.oci_tenancy_ocid
+  config_file_profile = var.oci_config_file_profile
 }
 
 provider "tailscale" {
@@ -34,12 +34,12 @@ provider "cloudflare" {
 
 provider "kubernetes" {
   config_path    = "~/.kube/config"
-  config_context = local.cluster_prefix
+  config_context = local.is_ready ? local.cluster_prefix : null
 }
 
 provider "helm" {
   kubernetes {
     config_path    = "~/.kube/config"
-    config_context = local.cluster_prefix
+    config_context = local.is_ready ? local.cluster_prefix : null
   }
 }

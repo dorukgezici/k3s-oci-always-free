@@ -1,8 +1,3 @@
-variable "cloudflare_token" {
-  description = "Cloudflare API Token"
-  type        = string
-}
-
 variable "cloudflare_zone_id" {
   description = "Cloudflare DNS Zone ID"
   type        = string
@@ -11,7 +6,6 @@ variable "cloudflare_zone_id" {
 variable "cluster_prefix" {
   description = "Prefix for the cluster name"
   type        = string
-  default     = "k3s-oci"
 }
 
 variable "k3s_servers" {

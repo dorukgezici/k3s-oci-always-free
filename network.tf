@@ -21,11 +21,6 @@ resource "oci_core_default_security_list" "default_security_list" {
   }
   ingress_security_rules {
     protocol    = "all"
-    description = "Allow traffic from cluster"
-    source      = "10.43.0.0/16"
-  }
-  ingress_security_rules {
-    protocol    = "all"
     description = "Allow traffic from the mesh management network"
     source      = local.mesh_management_network
   }

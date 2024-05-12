@@ -1,3 +1,14 @@
+resource "kubernetes_secret" "cloudflare_api_token" {
+  metadata {
+    name      = "cloudflare-api-token-secret"
+    namespace = "cert-manager"
+  }
+
+  data = {
+    api-token = var.cloudflare_token
+  }
+}
+
 resource "kubernetes_manifest" "cluster_issuer" {
   manifest = {
     "apiVersion" = "cert-manager.io/v1"
@@ -17,7 +28,7 @@ resource "kubernetes_manifest" "cluster_issuer" {
             "dns01" = {
               "cloudflare" = {
                 "apiTokenSecretRef" = {
-                  "name" = "${kubernetes_secret.cloudflare_api_token.metadata.0.name}"
+                  "name" = "cloudflare-api-token-secret"
                   "key"  = "api-token"
                 }
               }

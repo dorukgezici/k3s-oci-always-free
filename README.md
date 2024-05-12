@@ -7,9 +7,8 @@
 - [Cloudflare](https://cloudflare.com/) for DNS
 
 - [k3s](https://k3s.io/)
-- [cert-manager](https://cert-manager.io/)
 - [helm](https://helm.sh/)
-
+- [cert-manager](https://cert-manager.io/)
 - [Kubeapps](https://kubeapps.com/)
 
 ## Prerequisites

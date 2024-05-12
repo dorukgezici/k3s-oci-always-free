@@ -3,8 +3,18 @@ variable "cloudflare_zone_id" {
   type        = string
 }
 
-variable "cluster_prefix" {
-  description = "Prefix for the cluster name"
+variable "cluster_subdomain" {
+  description = "Cluster subdomain name for private access"
+  type        = string
+}
+
+variable "cluster_subdomain_public" {
+  description = "Cluster subdomain name for public access"
+  type        = string
+}
+
+variable "cluster_lb_ip" {
+  description = "IP address of the cluster load balancer"
   type        = string
 }
 

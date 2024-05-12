@@ -4,6 +4,11 @@ variable "cluster_prefix" {
 }
 
 variable "cluster_domain" {
-  description = "Domain for the cluster"
+  description = "Domain for the cluster (private)"
+  type        = string
+}
+
+variable "cluster_domain_public" {
+  description = "Domain for the cluster (public)"
   type        = string
 }

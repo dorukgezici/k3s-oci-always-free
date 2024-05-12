@@ -1,9 +1,15 @@
 locals {
   cidr_blocks             = ["10.0.0.0/16"]
-  mesh_management_network = "100.64.0.0/10" // tailscale VPN network
+  mesh_management_network = "100.64.0.0/10" // Tailscale VPN network
 
-  cluster_prefix = "k3s-oci"
-  cluster_domain = "${local.cluster_prefix}.${module.cloudflare.domain}"
+  cluster_prefix        = "k3s-oci"
+  cluster_prefix_public = "${local.cluster_prefix}-pub"
+
+  cluster_domain        = "${local.cluster_prefix}.${module.cloudflare.domain}"
+  cluster_domain_public = "${local.cluster_prefix_public}.${module.cloudflare.domain}"
+
+  cluster_nodes = concat(oci_core_instance.server, oci_core_instance.agent)
+  cluster_lb_ip = oci_load_balancer_load_balancer.cluster_load_balancer.ip_address_details[0]["ip_address"]
 
   k3s_servers = module.tailscale.k3s_servers
   k3s_agents  = module.tailscale.k3s_agents

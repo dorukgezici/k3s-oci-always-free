@@ -12,7 +12,7 @@
     { "action": "accept", "src": ["autogroup:member"], "dst": ["*:*"] },
     {
       "action": "accept",
-      "src": ["tag:cluster", "10.42.0.0/16"],
+      "src": ["tag:cluster", "tag:ci", "10.42.0.0/16"],
       "dst": ["tag:cluster:*", "10.42.0.0/16:*"]
     }
   ],

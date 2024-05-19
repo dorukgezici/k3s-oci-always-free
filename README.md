@@ -9,19 +9,29 @@
 - [k3s](https://k3s.io/)
 - [helm](https://helm.sh/)
 - [cert-manager](https://cert-manager.io/)
+- [longhorn](https://longhorn.io/)
 - [Kubeapps](https://kubeapps.com/)
 
 ## Prerequisites
 
 - Oracle Cloud, Tailscale and Cloudflare accounts set up
+- Terraform CLI
+- kubectl CLI
 
 ## Usage
 
-- Copy `.env.template` to `.env` and fill in the values
-- `terraform init -upgrade`
-- (Optional) Uncomment in `tailscale/main.tf` and run import to start managing your account ACL
-  - `terraform import module.tailscale.tailscale_acl.cluster_acl acl`
-- `terraform apply`
+1. Copy `.env.template` to `.env` and fill in the values
+2. `source .env` to load env variables into the shell
+3. `terraform init` to initialize the modules
+4. `terraform import module.tailscale.tailscale_acl.cluster_acl acl` to import your network ACL state
+5. `terraform apply` to deploy the cluster (some errors are expected at this stage)
+6. Wait for all nodes to be registered in your Tailscale network so that `local.is_ready` becomes true
+7. `terraform apply -target module.helm` to first deploy the CRDs via Helm
+8. `terraform apply` apply again for DNS to kick in, may still take a while after Cloudflare records are created
+
+- `terraform output fetch_kubeconfig | xargs | sh` to fetch kubectl config to `kubeconfig` file
+- `terraform output merge_kubeconfig | xargs | sh` to merge `kubeconfig` file with local `~/.kube/config`
+- (Caution) Overwrite your local `~/.kube/config` file with `kubeconfig-merged` file's contents after checking it
 
 ## Troubleshooting
 
@@ -36,5 +46,5 @@
 
 ### Tailscale
 
-- Uncomment in `tailscale/main.tf` and run import to start managing your account ACL
-- `terraform import module.tailscale.tailscale_acl.cluster_acl acl`
+- Un/comment `cluster_acl` in `tailscale/main.tf` depending on if you want to manage your Tailscale network ACL
+- `terraform import module.tailscale.tailscale_acl.cluster_acl acl` to import your network ACL state before applying

@@ -9,6 +9,11 @@ output "cluster_domain" {
   value       = local.cluster_domain
 }
 
+output "cluster_domain_public" {
+  description = "Cluster public domain"
+  value       = local.cluster_domain_public
+}
+
 output "cluster_lb_ip" {
   description = "Cluster load balancer IP"
   value       = local.cluster_lb_ip

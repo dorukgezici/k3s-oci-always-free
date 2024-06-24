@@ -31,6 +31,4 @@ module "kubernetes" {
 
   cloudflare_token  = var.cloudflare_token
   issuer_acme_email = var.issuer_acme_email
-
-  cluster_prefix = local.cluster_prefix
 }

@@ -6,6 +6,9 @@ resource "helm_release" "longhorn" {
   create_namespace = true
 
   values = [<<-EOF
+    global:
+      nodeSelector:
+        kubernetes.io/arch: arm64
     persistence:
       migratable: true
       defaultClassReplicaCount: 1

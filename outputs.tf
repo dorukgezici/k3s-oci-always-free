@@ -28,9 +28,3 @@ output "merge_kubeconfig" {
   description = "Run to merge K3s kubeconfig file with local"
   value       = "KUBECONFIG=${path.module}/kubeconfig:~/.kube/config kubectl config view --flatten > kubeconfig-merged"
 }
-
-output "kubeapps_token" {
-  description = "Kubeapps token"
-  value       = local.is_ready ? module.kubernetes.0.kubeapps_token : ""
-  sensitive   = true
-}

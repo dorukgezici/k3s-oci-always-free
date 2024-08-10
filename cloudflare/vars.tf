@@ -22,8 +22,3 @@ variable "k3s_servers" {
   description = "List of K3s servers, access IP with k3s_servers[i].addresses[0]"
   type        = list(any)
 }
-
-variable "k3s_agents" {
-  description = "List of K3s agents, access IP with k3s_agents[i].addresses[0]"
-  type        = list(any)
-}

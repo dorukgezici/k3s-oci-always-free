@@ -5,8 +5,9 @@ resource "oci_core_instance" "server" {
   display_name        = "${local.cluster_prefix}-server-${count.index + 1}"
   shape               = local.ampere_instance_config.shape_id
   source_details {
-    source_id   = local.ampere_instance_config.source_id
-    source_type = local.ampere_instance_config.source_type
+    source_id               = local.ampere_instance_config.source_id
+    source_type             = local.ampere_instance_config.source_type
+    boot_volume_size_in_gbs = 100
   }
   shape_config {
     memory_in_gbs = local.ampere_instance_config.ram
@@ -24,5 +25,12 @@ resource "oci_core_instance" "server" {
       k3s_api_domain     = local.cluster_domain
       tailscale_auth_key = var.tailscale_auth_key
     }))
+  }
+
+  lifecycle {
+    ignore_changes = [
+      # Ignore changes that you don't want to trigger replacement
+      metadata["user_data"],
+    ]
   }
 }

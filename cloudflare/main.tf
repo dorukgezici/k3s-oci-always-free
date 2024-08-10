@@ -9,10 +9,10 @@ resource "cloudflare_record" "servers" {
 }
 
 resource "cloudflare_record" "nodes" {
-  count           = length(concat(var.k3s_servers, var.k3s_agents))
+  count           = length(var.k3s_servers)
   zone_id         = var.cloudflare_zone_id
   name            = "*.${var.cluster_subdomain}"
-  value           = concat(var.k3s_servers, var.k3s_agents)[count.index].addresses[0]
+  value           = var.k3s_servers[count.index].addresses[0]
   type            = "A"
   proxied         = false
   allow_overwrite = true

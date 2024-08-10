@@ -13,7 +13,6 @@ module "cloudflare" {
   cluster_lb_ip            = local.cluster_lb_ip
 
   k3s_servers = module.tailscale.k3s_servers
-  k3s_agents  = module.tailscale.k3s_agents
 }
 
 module "helm" {

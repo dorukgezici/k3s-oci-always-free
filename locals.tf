@@ -8,15 +8,14 @@ locals {
   cluster_domain        = "${local.cluster_prefix}.${module.cloudflare.domain}"
   cluster_domain_public = "${local.cluster_prefix_public}.${module.cloudflare.domain}"
 
-  cluster_nodes = concat(oci_core_instance.server, oci_core_instance.agent)
+  cluster_nodes = oci_core_instance.server
   cluster_lb_ip = oci_load_balancer_load_balancer.cluster_load_balancer.ip_address_details[0]["ip_address"]
 
   k3s_servers = module.tailscale.k3s_servers
-  k3s_agents  = module.tailscale.k3s_agents
 
   # check tailscale network to see if all nodes are ready
   # is_ready = false
-  is_ready = length(local.k3s_servers) == 2 && length(local.k3s_agents) == 2
+  is_ready = length(local.k3s_servers) == 2
 
   ampere_instance_config = {
     shape_id = "VM.Standard.A1.Flex"

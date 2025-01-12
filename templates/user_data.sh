@@ -15,11 +15,11 @@ curl -fsSL https://tailscale.com/install.sh | sh
 
 if [[ "$HOSTNAME" =~ "server-1" ]]; then
     echo "[user_data.sh] Installing k3s server with --cluster-init..."
-    curl -sfL https://get.k3s.io | K3S_TOKEN="${cluster_token}" sh -s - server --cluster-init --tls-san="${k3s_api_ip},${k3s_api_domain}" --vpn-auth="name=tailscale,joinKey=${tailscale_auth_key}" --write-kubeconfig-mode=644
+    curl -sfL https://get.k3s.io | K3S_TOKEN="${cluster_token}" sh -s - server --cluster-init --tls-san="${k3s_api_domain}" --vpn-auth="name=tailscale,joinKey=${tailscale_auth_key}" --write-kubeconfig-mode=644
 
 elif [[ "$HOSTNAME" =~ "server" ]]; then
     echo "[user_data.sh] Installing k3s server..."
-    curl -sfL https://get.k3s.io | K3S_TOKEN="${cluster_token}" sh -s - server --server="https://${k3s_api_ip}:6443" --tls-san="${k3s_api_ip},${k3s_api_domain}" --vpn-auth="name=tailscale,joinKey=${tailscale_auth_key}" --write-kubeconfig-mode=644
+    curl -sfL https://get.k3s.io | K3S_TOKEN="${cluster_token}" sh -s - server --server="https://${k3s_api_ip}:6443" --tls-san="${k3s_api_domain}" --vpn-auth="name=tailscale,joinKey=${tailscale_auth_key}" --write-kubeconfig-mode=644
 
 else
     echo "[user_data.sh] Installing k3s agent..."
